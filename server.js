@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
 app.post('/signin', (req, res) => {
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        res.json('Success');
+        res.json(database.users[0]);
     }else{
         res.status(400).json('access denied')
     }
@@ -57,7 +57,6 @@ app.post('/register', (req, res) => {
         id: '125',
         name: name,
         email: email,
-        password: password,
         entires: 0,
         joined: new Date()
     })
@@ -89,9 +88,7 @@ app.post('/image', (req, res) => {
     database.users.forEach(user => {
         if(user.id === id){
             found = true;
-            console.log(user.entries);
             user.entries++;
-            console.log(user.entries)
             return res.json(user.entries);
         }
     })
